@@ -1,0 +1,73 @@
+# ──────────────────────────────────────────────
+# Chuleta – configuración
+# ──────────────────────────────────────────────
+
+[atajos]
+# Atajo para responder (Ctrl+Alt+Q en Windows/Linux)
+responder = "<ctrl>+<alt>+q"
+# Atajo para repasar (Ctrl+Alt+E en Windows/Linux)
+repasar   = "<ctrl>+<alt>+e"
+# Atajo para captura de recuadro de pantalla / esquemas visuales (Ctrl+Alt+S)
+captura   = "<ctrl>+<alt>+s"
+
+[busqueda]
+# Número de fragmentos a recuperar
+top_k = 6
+# Umbral mínimo de similitud semántica (coseno, 0-1)
+umbral_semantico = 0.55
+# Umbral mínimo de relevancia léxica BM25 (normalizado 0-1)
+umbral_lexico = 0.15
+# Tamaño objetivo de cada fragmento (caracteres)
+chunk_chars = 800
+# Solape entre fragmentos consecutivos (caracteres)
+chunk_overlap = 150
+
+[modelos]
+# Modelo de chat optimizado para cuenta gratuita (15 RPM / 500 RPD)
+chat = "gemini-3.5-flash-lite"
+# Modelo de embeddings (100 RPM / 30.000 TPM / 1000 RPD)
+embeddings = "gemini-embedding-001"
+# Dimensiones del vector de embedding
+dimensiones = 768
+
+[limites]
+# Límite global de peticiones por minuto para chat (Free tier: max 15, default: 12)
+chat_rpm = 12
+# Límite global de peticiones por minuto para embeddings (Free tier: max 100, default: 80)
+embed_rpm = 80
+# Concurrencia de peticiones
+concurrencia = 1
+# Máximo de tokens por minuto estimados durante indexación (~20.000)
+max_tokens_por_minuto = 20000
+
+[verificacion]
+# Longitud mínima de la evidencia (caracteres)
+evidencia_min_chars = 15
+# Verificación con llamada extra al modelo (desactivada por defecto para ahorrar peticiones)
+verificacion_modelo = false
+
+[cuadro]
+# Segundos mínimos que se muestra el cuadro
+segundos_min = 3
+# Segundos máximos que se muestra el cuadro
+segundos_max = 15
+# Segundos por palabra para calcular la duración
+segundos_por_palabra = 0.35
+# Ancho del cuadro en píxeles
+ancho = 380
+# Opacidad (0.0 transparente – 1.0 opaco)
+opacidad = 0.93
+
+[test]
+# Activar el modo test (detección automática de varias preguntas)
+activado = true
+# Segundos de visualización por pregunta en modo test
+segundos_por_pregunta = 1.5
+# Segundos máximos de visualización en modo test
+segundos_max_test = 45
+# Máximo de preguntas a procesar en modo test
+max_preguntas = 50
+# Tamaño máximo de lote por llamada en modo test (máximo 15 preguntas agrupadas)
+lote_max = 15
+# Concurrencia en modo test (1 para nivel gratuito)
+concurrencia = 1
