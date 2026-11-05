@@ -6,9 +6,33 @@ Herramienta de escritorio para estudiar. Selecciona una pregunta en cualquier pr
 
 ---
 
-## 🚀 Instalación rápida
+## ⚡ Descarga e instalación en 1 comando (Copiar y pegar)
 
-### 1. Consigue una clave de API de Gemini
+Abre tu terminal (**PowerShell** o CMD en Windows) en la carpeta donde quieras tener la app y pega **uno** de estos comandos:
+
+### 🔹 Opción 1: Si tienes Git instalado (Recomendado)
+```powershell
+git clone https://github.com/Ivancitoo-N/Chuleta.git; cd Chuleta; .\instalar.bat
+```
+*(En Linux / macOS / Git Bash usa: `git clone https://github.com/Ivancitoo-N/Chuleta.git && cd Chuleta && pip install -r requirements.txt`)*
+
+### 🔹 Opción 2: Sin Git (Descarga directa desde PowerShell en Windows)
+Si no tienes Git en tu PC, abre **PowerShell** y pega esta sola línea:
+```powershell
+Invoke-WebRequest -Uri "https://github.com/Ivancitoo-N/Chuleta/archive/refs/heads/main.zip" -OutFile "Chuleta.zip"; Expand-Archive "Chuleta.zip" -DestinationPath "."; Rename-Item "Chuleta-main" "Chuleta"; Remove-Item "Chuleta.zip"; cd "Chuleta"; .\instalar.bat
+```
+
+> **¿Qué hace `instalar.bat` automáticamente?**
+> 1. Comprueba tu instalación de Python.
+> 2. Crea el entorno virtual e instala todas las dependencias.
+> 3. Crea el archivo de claves `.env` listo para usar.
+> 4. Te crea el **acceso directo en tu Escritorio** con el icono de Chuleta.
+
+---
+
+## 🚀 Puesta en marcha rápida
+
+### 1. Consigue tu clave de API de Gemini (Gratis)
 
 Gratis en [aistudio.google.com/apikey](https://aistudio.google.com/apikey).
 
@@ -226,6 +250,9 @@ Chuleta/
 ├── .env                  # Tu clave de API (no se sube a git)
 ├── .env.example          # Plantilla de .env
 ├── requirements.txt      # Dependencias
+├── instalar.bat          # Instalador automático en 1 clic
+├── iniciar.bat           # Iniciar Chuleta en segundo plano
+├── detener.bat           # Detener la aplicación
 └── README.md             # Este archivo
 ```
 

@@ -123,6 +123,75 @@ echo.
 pause
 """
 
+instalar = """@echo off
+setlocal
+cd /d "%~dp0"
+
+echo ==================================================
+echo   Chuleta - Instalador automatico
+echo ==================================================
+echo.
+
+where python >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+    echo [ERROR] No se ha encontrado Python en el sistema.
+    echo Por favor instala Python 3.10 o superior marcando la casilla
+    echo "Add Python to PATH" durante la instalacion:
+    echo https://www.python.org/downloads/
+    echo.
+    pause
+    exit /b 1
+)
+
+if not exist ".venv\\Scripts\\python.exe" (
+    echo [1/4] Creando entorno virtual (.venv)...
+    python -m venv .venv
+    if %ERRORLEVEL% neq 0 (
+        echo [ERROR] No se pudo crear el entorno virtual.
+        pause
+        exit /b 1
+    )
+) else (
+    echo [1/4] Entorno virtual existente detectado.
+)
+
+echo [2/4] Instalando dependencias de requirements.txt...
+".venv\\Scripts\\python.exe" -m pip install -r requirements.txt
+if %ERRORLEVEL% neq 0 (
+    echo [ERROR] Fallo al instalar las dependencias.
+    pause
+    exit /b 1
+)
+
+echo [3/4] Configurando archivo de claves (.env)...
+if not exist ".env" (
+    copy ".env.example" ".env" >nul
+    echo      Archivo .env creado a partir de .env.example.
+) else (
+    echo      Archivo .env ya existente (no se sobreescribe).
+)
+
+echo [4/4] Creando acceso directo en el Escritorio...
+".venv\\Scripts\\python.exe" "scripts\\crear_acceso_directo.py"
+
+echo.
+echo ==================================================
+echo   [OK] Instalacion completada con exito!
+echo ==================================================
+echo.
+echo Pasos siguientes:
+echo 1. Abre el archivo .env y pon tu clave gratuita de Gemini:
+echo    GEMINI_API_KEY=tu_clave_aqui
+echo    (Consiguela gratis en https://aistudio.google.com/apikey)
+echo.
+echo 2. Pon tus apuntes (PDF, MD, TXT) en la carpeta "documentos".
+echo.
+echo 3. Inicia Chuleta haciendo doble clic en "iniciar.bat"
+echo    o desde el acceso directo de tu Escritorio.
+echo.
+pause
+"""
+
 def write_crlf(filename: str, content: str):
     p = Path(filename)
     b = content.strip().replace("\r\n", "\n").replace("\n", "\r\n").encode("utf-8") + b"\r\n"
@@ -131,6 +200,7 @@ def write_crlf(filename: str, content: str):
     print(f"[OK] {filename} escrito: {len(b)} bytes")
 
 def main():
+    write_crlf("instalar.bat", instalar)
     write_crlf("iniciar.bat", iniciar)
     write_crlf("detener.bat", detener)
     write_crlf("scripts/crear_acceso_directo.bat", crear_lnk)
